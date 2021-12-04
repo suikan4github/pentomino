@@ -1,0 +1,1 @@
+add_executable(pentomino main.cpp)
