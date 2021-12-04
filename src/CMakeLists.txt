@@ -1,1 +1,1 @@
-add_executable(pentomino main.cpp)
+add_executable(pentomino main.cpp piece.cpp)
