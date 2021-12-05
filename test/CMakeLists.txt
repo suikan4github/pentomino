@@ -1,22 +1,31 @@
-# 単体テストの定義
-add_executable(test_pentomino test_all.cpp)
-target_link_libraries(test_pentomino  
+
+# Unit test
+add_executable(${TEST_EXECUTABLE_NAME} test_all.cpp)
+target_link_libraries(${TEST_EXECUTABLE_NAME}  
                         gtest_main
-                        libpentomino
+                        ${TEST_LIBRARY_NAME}
                  )
 
-include(CTest)
 
+# Find and integrate the Google Test package
+
+# Load the FetchContent module
+# New in CMake 3.11
 include(FetchContent)
 
+# Declaration of googletest as content
 FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG release-1.10.0
+  	googletest
+  	GIT_REPOSITORY https://github.com/google/googletest.git
+  	GIT_TAG release-1.10.0
 )
 
+# Fetch the googletest
 FetchContent_MakeAvailable(googletest)
-                 
-# Register the GoogleTest to CTest
+
+# Include the GoogleTest
 include(GoogleTest)
-gtest_discover_tests(test_pentomino)
+
+# Search test cases and link 
+# New in CMake 3.10
+gtest_discover_tests(${TEST_EXECUTABLE_NAME})
