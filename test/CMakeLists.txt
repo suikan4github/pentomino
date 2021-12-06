@@ -1,10 +1,12 @@
+# Do not edit lines below
+
 # List all source file in this directory
 file(GLOB TEST_SRC "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 # Add the executable for the testcase which is using googletest
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SRC})
 
-# Add the library under the test.
+# Add the library under test.
 target_link_libraries(${TEST_EXECUTABLE_NAME}  
                         "gtest_main"
                         ${TEST_LIBRARY_NAME}

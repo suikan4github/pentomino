@@ -6,7 +6,6 @@ set(MAIN_FILE_PATTERN ".*/main.cpp$")
 
 # List up all source files including main.cpp
 file(GLOB ALL_SRCS "*.cpp")
-message(${ALL_SRCS})
 
 add_executable(${EXECUTABLE_NAME} ${ALL_SRCS})
 
