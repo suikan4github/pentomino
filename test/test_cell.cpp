@@ -19,7 +19,10 @@ TEST(Piece, SizeSmall)
     v.push_back(c);
     v.push_back(d);
 
+#ifndef NDEBUG
+    // We test only when assert() works.
     ASSERT_DEATH(Piece p(v), "p.*5");
+#endif
 }
 
 TEST(Piece, SizeLarge)
@@ -39,7 +42,10 @@ TEST(Piece, SizeLarge)
     v.push_back(e);
     v.push_back(d);
 
+#ifndef NDEBUG
+    // We test only when assert() works.
     ASSERT_DEATH(Piece p(v), "p.*5");
+#endif
 }
 
 TEST(Piece, Normalize)
