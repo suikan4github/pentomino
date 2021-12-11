@@ -4,7 +4,7 @@
 
 /**
  * @brief A point in the cartesian coordination.
- * 
+ *
  */
 struct Cell
 {
@@ -13,18 +13,18 @@ struct Cell
 
     /**
      * @brief Construct a new  object
-     * 
+     *
      * @param x X coordination
      * @param y Y coordination
      */
     Cell(int x, int y) : x_(x), y_(y){};
 
     /**
-     * @brief 
-     * 
-     * @param rhs 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @param rhs
+     * @return true
+     * @return false
      */
     bool operator==(const Cell &rhs) const
     {
@@ -39,12 +39,12 @@ struct Cell
 
     /**
      * @brief comparing two point a < b
-     * 
-     * @param rhs 
+     *
+     * @param rhs
      * @return true a < b
      * @return false  a >= b
      * @details
-     * Give the unique order to the 2D points. 
+     * Give the unique order to the 2D points.
      */
     bool operator<(const Cell &rhs) const
     {

@@ -4,17 +4,21 @@
 
 #include "cell.hpp"
 
+#ifndef FRIEND_TEST
+#define FRIEND_TEST(x, y)
+#endif
+
 /**
  * @brief Piece of puzzle.
  * @details
  * Contains 5 coordination
- * 
+ *
  */
 typedef std::vector<Cell> CellVector;
 
 /**
  * @brief Actual 5 cells piece.
- * 
+ *
  */
 class Piece;
 
@@ -25,7 +29,7 @@ class Piece;
  * The transformation means:
  * @li Mirrored
  * @li Rotated
- * Contains the original piece. No duplication in a collection. 
+ * Contains the original piece. No duplication in a collection.
  */
 typedef std::vector<Piece> TransformedPieces;
 
@@ -36,9 +40,9 @@ public:
     bool operator==(const Piece &rhs) const;
 
     /**
-     * @brief Create a vector of the Pieces. 
-     * 
-     * @return std::vector<Piece> 
+     * @brief Create a vector of the Pieces.
+     *
+     * @return std::vector<Piece>
      * @details
      * Each piece represents :
      * @li itself
@@ -49,6 +53,11 @@ public:
     TransformedPieces GenerateTransformedPieceVector();
 
 private:
+    FRIEND_TEST(Piece, Normalize);
+    FRIEND_TEST(Piece, EqOp);
+    FRIEND_TEST(Piece, MirrorByX);
+    FRIEND_TEST(Piece, MirrorByY);
+    FRIEND_TEST(Piece, RotateBy90);
     CellVector points_;
 
     // Sort cells, then, move to the (0,0) origine ( 1st cell is set to origin )

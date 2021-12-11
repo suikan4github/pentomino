@@ -54,7 +54,7 @@ Piece Piece::MirrorByX()
     {
         Cell new_cell(-cell.x_, cell.y_); // make a copy of element
 
-        cv.push_back(cell); // append to vector
+        cv.push_back(new_cell); // append to vector
     }
 
     Piece new_piece(cv); // automatically normalized
@@ -71,7 +71,7 @@ Piece Piece::MirrorByY()
     {
         Cell new_cell(cell.x_, -cell.y_); // make a copy of element
 
-        cv.push_back(cell); // append to vector
+        cv.push_back(new_cell); // append to vector
     }
 
     Piece new_piece(cv); // automatically normalized

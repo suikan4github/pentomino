@@ -1,10 +1,44 @@
-// Test cases for the antichattering class
+// Test cases for the Cell class
 
 #include "gtest/gtest.h"
-#include "piece.hpp"
+#include "cell.hpp"
 #include <stdexcept>
 
-TEST(dummy, dummy)
+TEST(Cell, EqOp)
 {
-    EXPECT_EQ(true, true);
+    Cell a(1, 2);
+    Cell b(1, 3);
+    Cell c(2, 2);
+
+    EXPECT_FALSE(a == b);
+    EXPECT_FALSE(b == c);
+    EXPECT_FALSE(c == a);
+
+    EXPECT_TRUE(a == a);
+}
+
+TEST(Cell, NeOp)
+{
+    Cell a(1, 2);
+    Cell b(1, 3);
+    Cell c(2, 2);
+
+    EXPECT_TRUE(a != b);
+    EXPECT_TRUE(b != c);
+    EXPECT_TRUE(c != a);
+
+    EXPECT_FALSE(a != a);
+}
+
+TEST(Cell, LtOp)
+{
+    Cell a(1, 2);
+    Cell b(1, 3);
+    Cell c(2, 2);
+
+    EXPECT_TRUE(a < b);
+    EXPECT_TRUE(b < c);
+    EXPECT_FALSE(c < a);
+
+    EXPECT_FALSE(a < a);
 }
