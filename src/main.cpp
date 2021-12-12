@@ -1,10 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <assert.h>
-
-#include "piece.hpp"
-#include "pieceset.hpp"
+#include "main.hpp"
 
 /**
  * @brief Output formatter for Cell type
@@ -22,22 +16,15 @@ operator<<(std::ostream &os, const Cell &p)
 
 int main(int, char **)
 {
+    signed char map[vsize][hsize];
+
     Cell origin(0, 0);
     CellVector cv;
     PieceSet ps;
 
+    // Generate 12 Pentomino pieces with its transformed variant.
     SearchAndAddPieces(ps, cv, origin);
 
-    unsigned int index = 1;
-
-    for (int index = 0; index < ps.size(); index++)
-    {
-        std::cout << "Piece " << index << " has " << ps[index].size() << " pieces." << std::endl;
-        //       for (int i = 0; i < ps[index].size(); i++)
-        {
-            int i = 0;
-            std::cout << "Piece[" << index << "] form " << i << "/" << ps[index].size() << std::endl;
-            PrintPiece(ps[index][i]);
-        }
-    }
+    // Count the possible pattern.
+    int count = ScanMap(map, 0, ps);
 }
