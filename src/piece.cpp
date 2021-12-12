@@ -175,3 +175,30 @@ TransformedPieces Piece::GenerateTransformedPieceVector()
 
     return piece_vector;
 }
+
+void Piece::Draw(unsigned char map[][9])
+{
+    // Make map blank.
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+            map[i][j] = ' ';
+
+    for (auto cell : points_)
+        map[cell.x_ + 4][cell.y_ + 4] = '*';
+}
+
+void PrintPiece(Piece p)
+
+{
+    unsigned char map[9][9];
+
+    p.Draw(map);
+
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+            std::cout << map[i][j];
+
+        std::cout << std::endl;
+    }
+}

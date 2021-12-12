@@ -48,6 +48,7 @@ TEST(PieceDeathTest, SizeLarge)
 #endif
 }
 
+// Check if normalize() works.
 TEST(Piece, Normalize)
 {
     Cell a(2, 2);
@@ -72,6 +73,7 @@ TEST(Piece, Normalize)
     EXPECT_TRUE((p.points_[4].x_ == 4) && (p.points_[4].y_ == 4));
 }
 
+// Check if "==" op works
 TEST(Piece, EqOp)
 {
     Cell a(2, 2);
@@ -113,6 +115,7 @@ TEST(Piece, EqOp)
     EXPECT_TRUE(p1 == p2);
 }
 
+// Check if MirrorByX() works
 TEST(Piece, MirrorByX)
 {
     Cell b(1, 1);
@@ -143,6 +146,7 @@ TEST(Piece, MirrorByX)
     EXPECT_EQ(mp.points_[4].y_, -2);
 }
 
+// Check if MirrorByY() works
 TEST(Piece, MirrorByY)
 {
     Cell b(1, 1);
@@ -173,6 +177,7 @@ TEST(Piece, MirrorByY)
     EXPECT_EQ(mp.points_[4].y_, -2);
 }
 
+// Check if RotateBy90() works
 TEST(Piece, RotateBy90)
 {
     Cell b(1, 1);
@@ -203,6 +208,14 @@ TEST(Piece, RotateBy90)
     EXPECT_EQ(rp.points_[4].y_, -3);
 }
 
+// Check if GenerateTransformedPieceVector() works.
+// Test by "/" shape.
+// o
+//  o
+//   o
+//    o
+//     o
+
 TEST(Piece, GenerateTransformedPieceVector1)
 {
     Cell b(1, 1);
@@ -224,6 +237,11 @@ TEST(Piece, GenerateTransformedPieceVector1)
     EXPECT_EQ(tp.size(), 2);
 }
 
+// Check if GenerateTransformedPieceVector() works.
+// Test by "+" shape.
+//  o
+// ooo
+//  o
 TEST(Piece, GenerateTransformedPieceVector2)
 {
     Cell b(1, 1);
@@ -245,6 +263,10 @@ TEST(Piece, GenerateTransformedPieceVector2)
     EXPECT_EQ(tp.size(), 1);
 }
 
+// Check if GenerateTransformedPieceVector() works.
+// Test by "b" shape.
+// oo
+// ooo
 TEST(Piece, GenerateTransformedPieceVector3)
 {
     Cell b(1, 1);

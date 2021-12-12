@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -38,6 +40,12 @@ class Piece
 public:
     Piece(CellVector &cell_list);
     bool operator==(const Piece &rhs) const;
+    /**
+     * @brief Draw on the given 9x9 map
+     *
+     * @param map 9x9 map.
+     */
+    void Draw(unsigned char map[][9]);
 
     /**
      * @brief Create a vector of the Pieces.
@@ -69,3 +77,5 @@ private:
     // Make 90 degree rotation of this
     Piece RotateBy90();
 };
+
+void PrintPiece(Piece p);
