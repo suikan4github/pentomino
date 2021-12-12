@@ -4,7 +4,7 @@
 #include "piece.hpp"
 #include <stdexcept>
 
-TEST(Piece, SizeSmall)
+TEST(PieceDeathTest, SizeSmall)
 {
     Cell a(2, 2);
     Cell b(1, 1);
@@ -25,7 +25,7 @@ TEST(Piece, SizeSmall)
 #endif
 }
 
-TEST(Piece, SizeLarge)
+TEST(PieceDeathTest, SizeLarge)
 {
     Cell a(2, 2);
     Cell b(1, 1);
