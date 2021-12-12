@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include "cell.hpp"
+#include "pentomino.hpp"
 
 #ifndef FRIEND_TEST
 #define FRIEND_TEST(x, y)
@@ -60,6 +61,55 @@ public:
      */
     TransformedPieces GenerateTransformedPieceVector();
 
+    /**
+     * @brief Check wether the given piece is inside map or not.
+     *
+     * @param x horizontal index. 0.. hsize-1.
+     * @param y vertical index. 0.. vsize-1.
+     * @return true Piece is not completely inside map
+     * @return false Piece is completely inside map
+     * @details
+     * Check with the map boundary. If some cell of given piece is outside of vsize*hsize Map map, return true.
+     */
+    bool IsOutOfBound(int xpos, int ypos);
+
+    /**
+     * @brief CHeck whether piece is oke to place on map or not.
+     *
+     * @param map vsize*hsize map.
+     * @param x horizontal index. 0.. hsize-1.
+     * @param y vertical index. 0.. vsize-1.
+     * @return true Piece is OK to place.
+     * @return false Piece is not OK to place. Some duplication or OB.
+     * @details
+     * Call @IsOutOfBound() at first. If it returns false, check wether the cell is already used or not.
+     * If not used, return true.
+     */
+    bool IsPossibleToPlace(Map map, int xpos, int ypos);
+
+    /**
+     * @brief Mark the map
+     *
+     * @param map vsize*hsize map.
+     * @param x horizontal index. 0.. hsize-1.
+     * @param y vertical index. 0.. vsize-1.
+     * @param mark Place to map.
+     * @details
+     * Write mark to the point in map where cell is going to place.
+     */
+    void PlacePiece(Map map, int xpos, int ypos, signed char mark);
+
+    /**
+     * @brief Unmark the map.
+     *
+     * @param map vsize*hsize map.
+     * @param x horizontal index. 0.. hsize-1.
+     * @param y vertical index. 0.. vsize-1.
+     * @details
+     * Write @ref unused to the point in map where cell is going to place.
+     */
+    void RemovePiece(Map map, int xpos, int ypos);
+
 private:
     FRIEND_TEST(Piece, Normalize);
     FRIEND_TEST(Piece, EqOp);
@@ -77,5 +127,3 @@ private:
     // Make 90 degree rotation of this
     Piece RotateBy90();
 };
-
-void PrintPiece(Piece p);

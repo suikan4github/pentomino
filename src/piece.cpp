@@ -187,18 +187,37 @@ void Piece::Draw(unsigned char map[][9])
         map[cell.x_ + 4][cell.y_ + 4] = '*';
 }
 
-void PrintPiece(Piece p)
-
+// Where xpos and ypos are position in the map.
+// We will try to place "this" piece to the coordination ( xpos, ypos )
+// and check whether all cell of this piece is in the map or not
+bool Piece::IsOutOfBound(int xpos, int ypos)
 {
-    unsigned char map[9][9];
 
-    p.Draw(map);
-
-    for (int i = 0; i < 9; i++)
+    // for all 5 cell of this piece
+    for (const auto &c : this->points_)
     {
-        for (int j = 0; j < 9; j++)
-            std::cout << map[i][j];
-
-        std::cout << std::endl;
+        if ((c.x_ + xpos >= xsize) || (0 > c.x_ + xpos)) // is OB on X axis?
+            return true;
+        if ((c.y_ + ypos >= ysize) || (0 > c.y_ + ypos)) // Is OB on Y axis?
+            return true;
     }
+
+    return false; // not OB.
+}
+
+// First, check if piece is out of bounds.
+// If not, check there is overwrap with existing cell in the given map.
+bool Piece::IsPossibleToPlace(Map map, int xpos, int ypos)
+{
+    if (IsOutOfBound(xpos, ypos)) // Is OB?
+        return false;             // Not possible to place
+
+    // for all 5 cell of this piece
+    for (const auto &c : this->points_)
+    {
+
+        if (map[c.x_ + xpos][c.y_ + ypos] != unused)
+            return false;
+    }
+    return true; // At here, it is possible to place
 }

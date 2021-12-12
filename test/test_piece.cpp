@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "piece.hpp"
+#include "utility.hpp"
 #include <stdexcept>
 
 TEST(PieceDeathTest, SizeSmall)
@@ -286,4 +287,80 @@ TEST(Piece, GenerateTransformedPieceVector3)
     auto tp = p.GenerateTransformedPieceVector();
 
     EXPECT_EQ(tp.size(), 8);
+}
+
+// Check IsOutOfBound() works
+// Test by "b" shape.
+// oo
+// ooo
+TEST(Piece, OutOfBound)
+{
+    Cell b(1, 1);
+    Cell a(2, 1);
+    Cell c(1, 2);
+    Cell e(2, 2);
+    Cell d(3, 2);
+    std::vector<Cell> v;
+
+    v.push_back(a);
+    v.push_back(b);
+    v.push_back(c);
+    v.push_back(d);
+    v.push_back(e);
+
+    Piece p(v);
+
+    EXPECT_TRUE(p.IsOutOfBound(-1, 0));    // explicit test
+    EXPECT_TRUE(p.IsOutOfBound(0, -1));    // explicit test
+    EXPECT_TRUE(p.IsOutOfBound(xsize, 0)); // explicit test
+    EXPECT_TRUE(p.IsOutOfBound(0, ysize)); // explicit test
+
+    // oo
+    // ooo
+    EXPECT_FALSE(p.IsOutOfBound(0, 0));         // Must OK
+    EXPECT_FALSE(p.IsOutOfBound(xsize - 3, 0)); // Must OK
+    EXPECT_TRUE(p.IsOutOfBound(xsize - 2, 0));  // Must NG
+    EXPECT_FALSE(p.IsOutOfBound(0, ysize - 2)); // Must OK
+    EXPECT_TRUE(p.IsOutOfBound(0, ysize - 1));  // Must NG
+}
+
+// Check IsPossibleToPlace() works
+// Test by "b" shape.
+// oo
+// ooo
+TEST(Piece, IsPossibleToPlace)
+{
+    Cell b(1, 1);
+    Cell a(2, 1);
+    Cell c(1, 2);
+    Cell e(2, 2);
+    Cell d(3, 2);
+    std::vector<Cell> v;
+
+    v.push_back(a);
+    v.push_back(b);
+    v.push_back(c);
+    v.push_back(d);
+    v.push_back(e);
+
+    Piece p(v);
+
+    Map map;
+    InitializeMap(map);
+
+    // oo
+    // ooo
+    EXPECT_TRUE(p.IsPossibleToPlace(map, 0, 0));          // Must OK
+    EXPECT_TRUE(p.IsPossibleToPlace(map, xsize - 3, 0));  // Must OK
+    EXPECT_FALSE(p.IsPossibleToPlace(map, xsize - 2, 0)); // Must NG
+    EXPECT_TRUE(p.IsPossibleToPlace(map, 0, ysize - 2));  // Must OK
+    EXPECT_FALSE(p.IsPossibleToPlace(map, 0, ysize - 1)); // Must NG
+
+    map[5][1] = 1; // use a cell
+
+    EXPECT_FALSE(p.IsPossibleToPlace(map, 5, 1)); // Must NG
+    EXPECT_TRUE(p.IsPossibleToPlace(map, 6, 1));  // Must OK
+    EXPECT_TRUE(p.IsPossibleToPlace(map, 5, 2));  // Must OK
+    EXPECT_FALSE(p.IsPossibleToPlace(map, 4, 1)); // Must NG
+    EXPECT_FALSE(p.IsPossibleToPlace(map, 5, 0)); // Must NG
 }

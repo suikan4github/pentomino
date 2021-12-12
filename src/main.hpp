@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -6,22 +8,7 @@
 #include "piece.hpp"
 #include "pieceset.hpp"
 
-/**
- * @brief Vertical size of map.
- *
- */
-const unsigned int vsize = 6;
-/**
- * @brief HHorizontal size of map.
- *
- */
-const unsigned int hsize = 10;
-
-/**
- * @brief Initial value of map element.
- *
- */
-const signed char unused = -1;
+#include "pentomino.hpp"
 
 /**
  * @brief Construct a new Is Out Of Bound object
@@ -41,58 +28,4 @@ const signed char unused = -1;
  *
  * For each successful trial is done, the map is cleared by @ref unused.
  */
-int ScanMap(signed char map[][hsize], int piece_index, PieceSet &piece_set);
-
-/**
- * @brief Check wether the given piece is inside map or not.
- *
- * @param map vsize*hsize map.
- * @param x horizontal index. 0.. hsize-1.
- * @param y vertical index. 0.. vsize-1.
- * @param piece Piece try to place.
- * @return true Piece is not completely inside map
- * @return false Piece is completely inside map
- * @details
- * Check with the map boundary. If some cell of given piece is outside of vsize*hsize map, return true.
- */
-bool IsOutOfBound(signed char map[][hsize], int x, int y, Piece const &piece);
-
-/**
- * @brief CHeck whether piece is oke to place on map or not.
- *
- * @param map vsize*hsize map.
- * @param x horizontal index. 0.. hsize-1.
- * @param y vertical index. 0.. vsize-1.
- * @param piece Piece try to place.
- * @return true Piece is OK to place.
- * @return false Piece is not OK to place. Some duplication or OB.
- * @details
- * Call @IsOutOfBound() at first. If it returns false, check wether the cell is already used or not.
- * If not used, return true.
- */
-bool IsPossibleToPlace(signed char map[][hsize], int x, int y, Piece const &piece);
-
-/**
- * @brief Mark the map
- *
- * @param map vsize*hsize map.
- * @param x horizontal index. 0.. hsize-1.
- * @param y vertical index. 0.. vsize-1.
- * @param piece Piece try to place.
- * @param mark Place to map.
- * @details
- * Write mark to the point in map where cell is going to place.
- */
-void PlacePiece(signed char map[][hsize], int x, int y, Piece const &piece, signed char mark);
-
-/**
- * @brief Unmark the map.
- *
- * @param map vsize*hsize map.
- * @param x horizontal index. 0.. hsize-1.
- * @param y vertical index. 0.. vsize-1.
- * @param piece Piece try to place.
- * @details
- * Write @ref unused to the point in map where cell is going to place.
- */
-void RemovePiece(signed char map[][hsize], int x, int y, Piece const &piece);
+int ScanMap(signed char map[][xsize], int piece_index, PieceSet &piece_set);
