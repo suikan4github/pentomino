@@ -1,10 +1,10 @@
 #include "utility.hpp"
+#include "cstring"
 
 void InitializeMap(Map map)
 {
-    for (int x = 0; x < xsize; x++)
-        for (int y = 0; y < ysize; y++)
-            map[x][y] = unused;
+
+    std::memset(map, unused, sizeof(Map));
 }
 
 std::ostream &

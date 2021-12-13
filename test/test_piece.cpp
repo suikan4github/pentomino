@@ -264,51 +264,53 @@ TEST(Piece, GenerateTransformedPieceVector2)
     EXPECT_EQ(tp.size(), 1);
 }
 
-// Check if GenerateTransformedPieceVector() works.
-// Test by "b" shape.
+// Test fixture with P Shape
 // oo
 // ooo
-TEST(Piece, GenerateTransformedPieceVector3)
+class PieceTest : public ::testing::Test
 {
-    Cell b(1, 1);
-    Cell a(2, 1);
-    Cell c(1, 2);
-    Cell e(2, 2);
-    Cell d(3, 2);
-    std::vector<Cell> v;
+protected:
+    Cell a_;
+    Cell b_;
+    Cell c_;
+    Cell d_;
+    Cell e_;
+    std::vector<Cell> v_;
 
-    v.push_back(a);
-    v.push_back(b);
-    v.push_back(c);
-    v.push_back(d);
-    v.push_back(e);
+    PieceTest() : a_(2, 1),
+                  b_(1, 1),
+                  c_(1, 2),
+                  d_(3, 2),
+                  e_(2, 2)
+    {
 
-    Piece p(v);
+        v_.push_back(a_);
+        v_.push_back(b_);
+        v_.push_back(c_);
+        v_.push_back(d_);
+        v_.push_back(e_);
+    }
+};
+
+// Check if GenerateTransformedPieceVector() works.
+// oo
+// ooo
+TEST_F(PieceTest, GenerateTransformedPieceVector3)
+{
+
+    Piece p(v_);
     auto tp = p.GenerateTransformedPieceVector();
 
     EXPECT_EQ(tp.size(), 8);
 }
 
 // Check IsOutOfBound() works
-// Test by "b" shape.
 // oo
 // ooo
-TEST(Piece, OutOfBound)
+TEST_F(PieceTest, OutOfBound)
 {
-    Cell b(1, 1);
-    Cell a(2, 1);
-    Cell c(1, 2);
-    Cell e(2, 2);
-    Cell d(3, 2);
-    std::vector<Cell> v;
 
-    v.push_back(a);
-    v.push_back(b);
-    v.push_back(c);
-    v.push_back(d);
-    v.push_back(e);
-
-    Piece p(v);
+    Piece p(v_);
 
     EXPECT_TRUE(p.IsOutOfBound(-1, 0));    // explicit test
     EXPECT_TRUE(p.IsOutOfBound(0, -1));    // explicit test
@@ -325,25 +327,11 @@ TEST(Piece, OutOfBound)
 }
 
 // Check IsPossibleToPlace() works
-// Test by "b" shape.
 // oo
 // ooo
-TEST(Piece, IsPossibleToPlace)
+TEST_F(PieceTest, IsPossibleToPlace)
 {
-    Cell b(1, 1);
-    Cell a(2, 1);
-    Cell c(1, 2);
-    Cell e(2, 2);
-    Cell d(3, 2);
-    std::vector<Cell> v;
-
-    v.push_back(a);
-    v.push_back(b);
-    v.push_back(c);
-    v.push_back(d);
-    v.push_back(e);
-
-    Piece p(v);
+    Piece p(v_);
 
     Map map;
     InitializeMap(map);
@@ -363,4 +351,33 @@ TEST(Piece, IsPossibleToPlace)
     EXPECT_TRUE(p.IsPossibleToPlace(map, 5, 2));  // Must OK
     EXPECT_FALSE(p.IsPossibleToPlace(map, 4, 1)); // Must NG
     EXPECT_FALSE(p.IsPossibleToPlace(map, 5, 0)); // Must NG
+}
+
+// Check PlacePiece() works
+// oo
+// ooo
+TEST_F(PieceTest, PlacePiece)
+{
+    Piece p(v_);
+
+    Map map;
+    InitializeMap(map);
+
+    // oo
+    // ooo
+    p.PlacePiece(map, 1, 1, 3);
+
+    EXPECT_EQ(map[1][1], 3);
+    EXPECT_EQ(map[2][1], 3);
+    EXPECT_EQ(map[1][2], 3);
+    EXPECT_EQ(map[2][2], 3);
+    EXPECT_EQ(map[3][2], 3);
+
+    p.RemovePiece(map, 1, 1);
+
+    EXPECT_EQ(map[1][1], unused);
+    EXPECT_EQ(map[2][1], unused);
+    EXPECT_EQ(map[1][2], unused);
+    EXPECT_EQ(map[2][2], unused);
+    EXPECT_EQ(map[3][2], unused);
 }

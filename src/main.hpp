@@ -28,4 +28,4 @@
  *
  * For each successful trial is done, the map is cleared by @ref unused.
  */
-int ScanMap(signed char map[][xsize], int piece_index, PieceSet &piece_set);
+int ScanMap(Map map, int piece_index, PieceSet &piece_set);

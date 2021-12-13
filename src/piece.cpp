@@ -221,3 +221,17 @@ bool Piece::IsPossibleToPlace(Map map, int xpos, int ypos)
     }
     return true; // At here, it is possible to place
 }
+
+void Piece::PlacePiece(Map map, int xpos, int ypos, signed char mark)
+{
+    // for all 5 cell of this piece
+    for (const auto &c : this->points_)
+        map[c.x_ + xpos][c.y_ + ypos] = mark;
+}
+
+void Piece::RemovePiece(Map map, int xpos, int ypos)
+{
+    // for all 5 cell of this piece
+    for (const auto &c : this->points_)
+        map[c.x_ + xpos][c.y_ + ypos] = unused;
+}
